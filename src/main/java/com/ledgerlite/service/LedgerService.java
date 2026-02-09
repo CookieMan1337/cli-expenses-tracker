@@ -2,23 +2,38 @@ package main.java.com.ledgerlite.service;
 
 import main.java.com.ledgerlite.domain.*;
 import main.java.com.ledgerlite.exception.ValidationException;
-import main.java.com.ledgerlite.persisence.Repository;
+import main.java.com.ledgerlite.persistence.InMemoryRepository;
+import main.java.com.ledgerlite.persistence.Repository;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.Currency;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class LedgerService {
-    private final Repository<Transaction> transactionRepository;
-    private final Repository<Category> categoryRepository;
+    private final Repository<Transaction, UUID> transactionRepository;
+    private final Repository<Category, String> categoryRepository;
 
     public LedgerService(
-            Repository<Transaction> transactionRepository,
-            Repository<Category> categoryRepository) {
+            Repository<Transaction, UUID> transactionRepository,
+            Repository<Category, String> categoryRepository) {
         this.transactionRepository = transactionRepository;
         this.categoryRepository = categoryRepository;
+        initializeDefaultCategories();
+    }
+
+    public LedgerService() {
+        // Для Transaction: ID = UUID (Transaction.getId())
+        this.transactionRepository = new InMemoryRepository<>(
+                Transaction::getId
+        );
+
+        // Для Category: ID = String (код категории)
+        this.categoryRepository = new InMemoryRepository<>(
+                Category::code
+        );
+
         initializeDefaultCategories();
     }
 
@@ -30,53 +45,63 @@ public class LedgerService {
 
     // Транзакции
 
-    public Income addIncome(LocalDate date, Money amount, Category category, String note){
-        validateTransactionParams(date,amount,category);
+    public Optional<Transaction> getTransaction(UUID id) {  // Принимаем UUID
+        return transactionRepository.findById(id);  // Передаем UUID (Object)
+    }
 
-        Income income = new Income(date,amount,category,note);
+    public Optional<Transaction> getTransaction(String idString) {  // Перегрузка для String
+        try {
+            UUID id = UUID.fromString(idString);
+            return getTransaction(id);
+        } catch (IllegalArgumentException e) {
+            throw new ValidationException("Invalid transaction ID format: " + idString);
+        }
+    }
+
+    public void removeTransaction(UUID id) {  // Принимаем UUID
+        transactionRepository.delete(id);  // Передаем UUID (Object)
+    }
+
+    public void removeTransaction(String idString) {  // Перегрузка для String
+        try {
+            UUID id = UUID.fromString(idString);
+            removeTransaction(id);
+        } catch (IllegalArgumentException e) {
+            throw new ValidationException("Invalid transaction ID format: " + idString);
+        }
+    }
+
+    public Income addIncome(LocalDate date, Money amount, Category category, String note) {
+        validateTransactionParams(date, amount, category);
+        Income income = new Income(date, amount, category, note);
         transactionRepository.save(income);
         return income;
     }
 
-    public Expense addExpense(LocalDate date, Money amount, Category category, String note){
-        validateTransactionParams(date,amount,category);
-
-        Expense expense = new Expense(date,amount,category,note);
+    public Expense addExpense(LocalDate date, Money amount, Category category, String note) {
+        validateTransactionParams(date, amount, category);
+        Expense expense = new Expense(date, amount, category, note);
         transactionRepository.save(expense);
         return expense;
     }
 
     private void validateTransactionParams(LocalDate date, Money amount, Category category) {
-        if (date.isAfter(LocalDate.now())){
-            throw new ValidationException("Транзакция не может быть в будущем");
+        if (date.isAfter(LocalDate.now())) {
+            throw new ValidationException("Transaction date cannot be in the future");
         }
-        if (!categoryRepository.exists(category.code())){
-            throw new ValidationException("Такой категории нет: " + category.name() + categoryRepository.findAll());
+        if (!categoryRepository.exists(category.code())) {
+            throw new ValidationException("Category not found: " + category.name());
         }
     }
 
-    public Optional<Transaction> getTransansaction(String id){
-        return transactionRepository.findById(id);
-    }
-
-    public List<Transaction> getTransactions() {
+    public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
-    }
-
-    public List<Transaction> getTransactionsByDate(LocalDate date){
-        return transactionRepository.findAll().stream()
-                .filter(t -> t.getDate().equals(date))
-                .toList();
-    }
-
-    public void removeTransaction(String id){
-        transactionRepository.delete(id);
     }
 
     //Категории
 
     public Category addCategory(String code,String name){
-        if (categoryRepository.exists(code)){
+        if (categoryRepository.exists(code.toUpperCase())){
             throw new ValidationException("Категория " + name + " уже существует.");
         }
 
@@ -104,6 +129,12 @@ public class LedgerService {
     }
 
     //Сводка
+
+    public Money getBalance() {
+        Money totalIncome = getTotalIncome();
+        Money totalExpense = getTotalExpense();
+        return totalIncome.subtract(totalExpense);
+    }
 
     public Money getTotalIncome(){
         return transactionRepository.findAll().stream()

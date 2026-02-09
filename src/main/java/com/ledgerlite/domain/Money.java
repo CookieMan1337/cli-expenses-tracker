@@ -40,7 +40,7 @@ public record Money(BigDecimal value, Currency currency) {
         return new Money(this.value.add(other.value),this.currency);
     }
 
-    public Money substract(Money other){
+    public Money subtract(Money other){
         validateSameCurrency(other);
         return new Money(this.value.subtract(other.value),this.currency);
     }

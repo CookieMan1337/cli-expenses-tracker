@@ -1,1 +1,3 @@
 rootProject.name = 'cli-expenses-tracker'
+
+include 'src'

@@ -1,5 +1,6 @@
 package main.java.com.ledgerlite.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
@@ -29,6 +30,9 @@ public abstract class Transaction {
     private void validate(){
         if (date.isAfter(LocalDate.now())){
             throw new IllegalArgumentException("Дата не может быть в будущем!");
+        }
+        if (amount.value().compareTo(BigDecimal.ZERO) == 0) {
+            throw new IllegalArgumentException("Сумма транзакции не может быть нулевой!");
         }
     }
 

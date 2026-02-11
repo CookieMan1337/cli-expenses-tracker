@@ -1,12 +1,23 @@
 [ {
-  "date" : [ 2026, 1, 1 ],
+  "date" : [ 2026, 1, 2 ],
   "amount" : {
-    "value" : 43543,
+    "value" : 3999,
+    "currency" : "RUB"
+  },
+  "category" : {
+    "code" : "FOOD",
+    "name" : "food"
+  },
+  "note" : "note"
+}, {
+  "date" : [ 2026, 1, 26 ],
+  "amount" : {
+    "value" : 3000,
     "currency" : "RUB"
   },
   "category" : {
     "code" : "1",
-    "name" : "1"
+    "name" : "food"
   },
   "note" : "note"
 } ]

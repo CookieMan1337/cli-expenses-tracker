@@ -2,10 +2,12 @@ package com.ledgerlite.service;
 
 import com.ledgerlite.domain.*;
 import com.ledgerlite.exception.ValidationException;
+import com.ledgerlite.persistence.FileStore;
 import com.ledgerlite.persistence.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -24,15 +26,75 @@ public class LedgerService {
     //private final Repository<Budget> budgetRepository;
     private final Map<YearMonth,Map<Category,Budget>> budgets ;//= new ConcurrentHashMap<>();
     private final Map<String,Category> catCache = new ConcurrentHashMap<>();
+    private final FileStore fileStore;
+
+    private final Deque<String> undoStack = new ArrayDeque<>();
+    private final int maxUndoSteps = 10;
 
 
-    // private final Deque<Command> undoStack = new ArrayDeque<>();
 
-    public LedgerService(Repository<Transaction> transactionRepository, Map<YearMonth,Map<Category,Budget>> budgets){
-        // this.catCache = Objects.requireNonNull(catCache);
+    public LedgerService(Repository<Transaction> transactionRepository, Map<YearMonth,Map<Category,Budget>> budgets, FileStore fileStore){
 
         this.transactionRepository = Objects.requireNonNull(transactionRepository);
         this.budgets = Objects.requireNonNull(budgets);
+        this.fileStore = fileStore;
+        loadFromFile(); // Загружаем данные при старте
+    }
+
+    private void loadFromFile() {
+        try {
+            List<Transaction> savedTransactions = fileStore.loadTransactions();
+            savedTransactions.forEach(transactionRepository::save);
+            List<Category> savedCategories = fileStore.loadCategories();
+            savedCategories.forEach(cat -> catCache.put(cat.code(),cat));
+        } catch (Exception e) {
+            System.err.println("loadFromFile error: " + e.getMessage());
+        }
+    }
+    private void saveToFile() {
+        try {
+            fileStore.saveTransactions(new ArrayList<>(transactionRepository.findAll()));
+            fileStore.saveCategories(new ArrayList<>(getAllCategories()));
+        } catch (IOException e) {
+            throw new RuntimeException("saveToFile error:", e);
+        }
+    }
+    public boolean canUndo() {
+        return !undoStack.isEmpty();
+    }
+    public void undo() {
+        if (!canUndo()) {
+            throw new IllegalStateException("Nothing to undo");
+        }
+
+        String lastAction = undoStack.pop();
+
+        try {
+            UUID transactionId = UUID.fromString(lastAction);
+            undoAddTransaction(transactionId);
+            log.info("Undo performed: {}", lastAction);
+        } catch (Exception e) {
+            undoStack.push(lastAction);
+            throw new RuntimeException("Failed to undo operation: " + e.getMessage(), e);
+        }
+    }
+
+    private void undoAddTransaction(UUID transactionId) {
+        transactionRepository.delete(transactionId);
+        try {
+            List<Transaction> allTransactions = getAllTransactions();
+            fileStore.deleteTransaction(transactionId, allTransactions);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to update file during undo", e);
+        }
+        log.info("Undo ADD: removed transaction {}", transactionId);
+    }
+
+    private void pushToUndoStack(String action) {
+        if (undoStack.size() >= maxUndoSteps) {
+            undoStack.removeLast();
+        }
+        undoStack.push(action);
     }
 
     public void addCategory(String code, String name) {
@@ -40,8 +102,7 @@ public class LedgerService {
             Category cat = new Category(code, name);
             log.info("Category added : " + code + " " + name);
             catCache.put(code, cat);
-            // categoryRepository.save(cat);
-//            undoStack.push(()-> categories.remove(code));
+            saveToFile();
         } else {
             throw new ValidationException("Category already exists");
         }
@@ -58,7 +119,7 @@ public class LedgerService {
         return cat;
     }
 
-    public Collection<Category> getAllCategories(){
+    private Collection<Category> getAllCategories(){
         return new ArrayList<>(catCache.values());
     }
 
@@ -68,8 +129,9 @@ public class LedgerService {
     public void addIncome(LocalDate date, Money amount, Category cat, String note) {
         Income income = new Income(date, amount, cat, note);
         transactionRepository.save(income);
+        saveToFile();
+        pushToUndoStack(income.getId().toString());
         log.info("Income added : " + date.toString() + " " + amount.toString());
-//           undoStack.push(()-> transactionRepository.remove(income.id));
         // autosave();
     }
 
@@ -79,8 +141,9 @@ public class LedgerService {
     public void addExpense(LocalDate date, Money amount, Category cat, String note) {
         Expense expense = new Expense(date, amount, cat, note);
         transactionRepository.save(expense);
+        saveToFile();
+        pushToUndoStack(expense.getId().toString());
         log.info("Expense added : " + date.toString() + " " + amount.toString());
-//           undoStack.push(()-> transactionRepository.remove(income.id));
         // autosave();
     }
 
@@ -92,7 +155,6 @@ public class LedgerService {
         budgets.put(period,categoryBudgetMap);
         System.out.println(budgets.entrySet().stream().toList());
         log.info("Budget setted : " + period.toString() + " " + cat.toString() + " " + limit.toString());
-//            undoStack.push(()-> transactionRepository.remove(income.id));
     }
 
     private Money getTotalExpensesByPeriodAndCategory(YearMonth period, Category category){

@@ -4,6 +4,7 @@ import com.ledgerlite.domain.Budget;
 import com.ledgerlite.domain.Category;
 import com.ledgerlite.domain.Money;
 import com.ledgerlite.domain.Transaction;
+import com.ledgerlite.persistence.FileStore;
 import com.ledgerlite.persistence.InMemoryRepository;
 import com.ledgerlite.persistence.Repository;
 import com.ledgerlite.service.BudgetService;
@@ -27,14 +28,17 @@ class BudgetServiceTest {
     private LedgerService ledgerService;
     private BudgetService budgetService;
 
+    private final FileStore fileStore = new FileStore();
+
     private final Currency RUB = Currency.getInstance("RUB");
     private Category food;
     private Category entertainment;
 
     @BeforeEach
     void setUp(){
-        ledgerService = new LedgerService(transactionRepository,budgets);
+        ledgerService = new LedgerService(transactionRepository,budgets,fileStore);
         budgetService = new BudgetService(budgets,ledgerService);
+
 
         food = new Category("FOOD", "Food");
         ledgerService.addCategory(food.code(),food.name());

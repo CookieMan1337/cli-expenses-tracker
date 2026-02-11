@@ -2,6 +2,7 @@ package com.ledgerlite.io;
 
 import com.ledgerlite.domain.*;
 import com.ledgerlite.io.CSVExporter;
+import com.ledgerlite.persistence.FileStore;
 import com.ledgerlite.persistence.InMemoryRepository;
 import com.ledgerlite.persistence.Repository;
 import com.ledgerlite.report.Report;
@@ -25,6 +26,7 @@ class CSVExporterTest {
     private LedgerService ledgerService;
     private ReportService reportService;
     //private final CSVExporter csvExporter = new CSVExporter();
+    private final FileStore fileStore = new FileStore();
 
     private final Currency RUB = Currency.getInstance("RUB");
     private Category food;
@@ -32,7 +34,7 @@ class CSVExporterTest {
 
     @BeforeEach
     void setUp(){
-        ledgerService = new LedgerService(transactionRepository,budgets);
+        ledgerService = new LedgerService(transactionRepository,budgets,fileStore);
         reportService = new ReportService(ledgerService);
 
         food = new Category("FOOD", "Food");

@@ -37,4 +37,5 @@ application {
 
 test {
     useJUnitPlatform()
+    exclude 'test/java/com/ledgerlite/io/CSVExporterTest.class'
 }

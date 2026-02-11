@@ -37,6 +37,7 @@ public class App {
     public App(){
 
         Repository<Transaction> transactionRepository = new InMemoryRepository<>();
+        FileStore fileStore = new FileStore();
         // Убираю репозитории рекордов
         //Repository<Category> categoryRepository = new InMemoryRepository<>();
         //Repository<Budget> budgetRepository = new InMemoryRepository<>();
@@ -46,11 +47,10 @@ public class App {
 
 
 
-        this.ledgerService = new LedgerService(transactionRepository,budgets);
+        this.ledgerService = new LedgerService(transactionRepository,budgets,fileStore);
         this.budgetService = new BudgetService(budgets, ledgerService);
         this.reportService = new ReportService(ledgerService);
         this.fileStore = new FileStore();
-        // this.handler = new CommandHandler(ledgerService,budgetService,reportService);
         this.scanner = new Scanner(System.in);
 
     }
@@ -60,17 +60,19 @@ public class App {
 
 
         String[] parts = line.trim().split("\\s+", 2);
-        String[] params = parts[1].trim().split("\\s+");
+       // String[] params = parts[1].trim().split("\\s+");
 
         try{
 
             switch (parts[0]) {
-                case "add-cat" -> { //CODE NAME
+                case "add-cat" -> {
+                    String[] params = parts[1].trim().split("\\s+");//CODE NAME
                     ensureArgs(params,2);
                     ledgerService.addCategory(params[0], params[1]);
                     System.out.println("Category added " + params[1]);
                 }
                 case "add-inc" -> { //YYYY-MM-DD AMOUNT CODE [NOTE...]
+                    String[] params = parts[1].trim().split("\\s+");
                     ensureArgs(params,3);
                     LocalDate date = DateUtil.parseDate(params[0]);
                     Money amount = MoneyUtil.parseMoney(params[1]);
@@ -80,6 +82,7 @@ public class App {
                     System.out.println("Income added " + date);
                 }
                 case "add-exp" -> { //YYYY-MM-DD AMOUNT CODE [NOTE...]
+                    String[] params = parts[1].trim().split("\\s+");
                     ensureArgs(params,3);
                     LocalDate date = DateUtil.parseDate(params[0]);
                     Money amount = MoneyUtil.parseMoney(params[1]);
@@ -90,6 +93,7 @@ public class App {
                     System.out.println("Expense added");
                 }
                 case "set-budget" -> { // YYYY-MM CODE LIMIT"
+                    String[] params = parts[1].trim().split("\\s+");
                     ensureArgs(params,3);
                     YearMonth period = YearMonth.from(DateUtil.parsePeriod(params[0]));
                     String code = params[1];
@@ -98,6 +102,7 @@ public class App {
                     System.out.println("Budget setted");
                 }
                 case "report-month" -> { // YYYY-MM json|csv
+                    String[] params = parts[1].trim().split("\\s+");
                     ensureArgs(params,1);
                     YearMonth period = YearMonth.from(DateUtil.parsePeriod(params[0]));
                     String type = params[1];
@@ -111,31 +116,27 @@ public class App {
                     //System.out.println(rep.toString());
                 }
                 case "report-top" -> { // N json|csv
+                    String[] params = parts[1].trim().split("\\s+");
                     ensureArgs(params,1);
                     int n = Integer.parseInt(params[0]);
                     String type = params[1];
                     try{
                         reportService.exportTopNExpenses(n,type);
-                    }catch (IOException e) {
-                        throw new RuntimeException(e);
-                    } catch (Exception e) {
+                    }catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                     System.out.println("report exported");
                 }
                 case "import" -> { //csv path/to/file.csv
-
                     System.out.println("ok");
                 }
-//                case "export" -> { //report json|csv path/to/out
-////                    try{
-////                        reportService.exportReportByPeriod(period);
-////                    }catch (IOException e) {
-////                        throw new RuntimeException(e);
-////                    }
-////                    System.out.println("report exported");
-//                }
                 case "undo" -> {
+                    if(ledgerService.canUndo()){
+                        ledgerService.undo();
+                        System.out.println("Last operation cancelled");
+                    } else{
+                        System.out.println("Nothing to cancel");
+                    }
                     System.out.println("ok");
                 }
                 default -> System.out.println("Unknown command. Type \"help\"");
@@ -152,15 +153,6 @@ public class App {
 
     public void printHelp(PrintStream out){
         out.println("help");
-    }
-
-    public void handleUndo(PrintStream out){
-//        if(ledgerService.canUndo()){
-//            ledgerService.undo();
-//            out.println("Last operation cancelled");
-//        } else{
-//            out.println("Nothing to cancel");
-//        }
     }
 
 }

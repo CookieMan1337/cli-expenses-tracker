@@ -2,6 +2,7 @@ package com.ledgerlite.io;
 
 import com.ledgerlite.domain.*;
 import com.ledgerlite.io.JSONExporter;
+import com.ledgerlite.persistence.FileStore;
 import com.ledgerlite.persistence.InMemoryRepository;
 import com.ledgerlite.persistence.Repository;
 import com.ledgerlite.report.Report;
@@ -24,7 +25,8 @@ public class JSONEsporterTest {
     private final Map<YearMonth, Map<Category, Budget>> budgets = new ConcurrentHashMap<>();
     private LedgerService ledgerService;
     private ReportService reportService;
-    //private final JSONExporter jsonExporter = new JSONExporter();
+
+    private final FileStore fileStore = new FileStore();
 
     private final Currency RUB = Currency.getInstance("RUB");
     private Category food;
@@ -32,7 +34,7 @@ public class JSONEsporterTest {
 
     @BeforeEach
     void setUp(){
-        ledgerService = new LedgerService(transactionRepository,budgets);
+        ledgerService = new LedgerService(transactionRepository,budgets,fileStore);
         reportService = new ReportService(ledgerService);
 
         food = new Category("FOOD", "Food");

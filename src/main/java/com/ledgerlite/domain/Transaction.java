@@ -3,11 +3,14 @@ package com.ledgerlite.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencsv.bean.CsvIgnore;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract class Transaction {
+public abstract class Transaction implements Serializable {
     @JsonIgnore
     @CsvIgnore
     transient UUID id;
@@ -22,6 +25,15 @@ public abstract class Transaction {
         this.amount = Objects.requireNonNull(amount);
         this.category = Objects.requireNonNull(category);
         this.note = (note == null)?"":note.strip();
+    }
+
+    private void readObject(ObjectInputStream ois)
+            throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        // Если ID null (старые версии файлов), генерируем новый
+        if (id == null) {
+            id = UUID.randomUUID();
+        }
     }
 
     public UUID getId(){return id;}

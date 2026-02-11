@@ -2,6 +2,7 @@ package com.ledgerlite.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -9,7 +10,7 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 
-public record Money(BigDecimal value, Currency currency){
+public record Money(BigDecimal value, Currency currency)implements Serializable {
     private static final MathContext MATH_CONTEXT = new MathContext(10, RoundingMode.HALF_UP);
     public Money{
         if (value == null) throw new IllegalArgumentException("value is blank");

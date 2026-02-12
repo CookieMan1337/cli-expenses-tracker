@@ -1,4 +1,4 @@
-package main.java.com.ledgerlite.persistence;
+package com.ledgerlite.persistence;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,9 +1,9 @@
-package main.java.com.ledgerlite.service;
+package com.ledgerlite.service;
 
-import main.java.com.ledgerlite.domain.*;
-import main.java.com.ledgerlite.exception.ValidationException;
-import main.java.com.ledgerlite.persistence.InMemoryRepository;
-import main.java.com.ledgerlite.persistence.Repository;
+import com.ledgerlite.domain.*;
+import com.ledgerlite.exception.ValidationException;
+import com.ledgerlite.persistence.InMemoryRepository;
+import com.ledgerlite.persistence.Repository;
 
 import java.time.LocalDate;
 import java.util.Currency;

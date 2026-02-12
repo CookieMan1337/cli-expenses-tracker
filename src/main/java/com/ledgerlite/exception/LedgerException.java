@@ -1,4 +1,4 @@
-package main.java.com.ledgerlite.exception;
+package com.ledgerlite.exception;
 
 public class LedgerException  extends RuntimeException{
     public LedgerException(String message){

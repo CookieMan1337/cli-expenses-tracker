@@ -1,7 +1,8 @@
-package main.java.com.ledgerlite.domain;
+package com.ledgerlite.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -71,5 +72,9 @@ public abstract class Transaction {
 
     public enum TransactionType {
         INCOME, EXPENSE
+    }
+
+    public YearMonth getYearMonth(){
+        return YearMonth.from(date);
     }
 }

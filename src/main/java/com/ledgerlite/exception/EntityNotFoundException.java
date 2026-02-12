@@ -1,4 +1,4 @@
-package main.java.com.ledgerlite.exception;
+package com.ledgerlite.exception;
 
 public class EntityNotFoundException extends LedgerException{
     public EntityNotFoundException(String entityName, Object id){

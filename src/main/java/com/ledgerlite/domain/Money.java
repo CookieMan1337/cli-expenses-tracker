@@ -1,4 +1,4 @@
-package main.java.com.ledgerlite.domain;
+package com.ledgerlite.domain;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -16,6 +16,8 @@ public record Money(BigDecimal value, Currency currency) {
 
         value = value.setScale(2, RoundingMode.HALF_EVEN);
     }
+
+    public static final Money ZERO_RUB = new Money(BigDecimal.ZERO, Currency.getInstance("RUB"));
 
     //Статические фабричные методы для удобства создания
     public static Money of(BigDecimal value, Currency currency) {
@@ -61,6 +63,11 @@ public record Money(BigDecimal value, Currency currency) {
     public boolean isLessThan(Money other){
         validateSameCurrency(other);
         return this.value.compareTo(other.value) < 0;
+    }
+
+    public int compareTo(Money other) {
+        validateSameCurrency(other);
+        return this.value.compareTo(other.value);
     }
 
     public boolean isNegative(){

@@ -1,6 +1,6 @@
-package main.java.com.ledgerlite.persistence;
+package com.ledgerlite.persistence;
 
-import main.java.com.ledgerlite.exception.EntityNotFoundException;
+import com.ledgerlite.exception.EntityNotFoundException;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

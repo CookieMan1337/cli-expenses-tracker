@@ -1,4 +1,4 @@
-package main.java.com.ledgerlite.domain;
+package com.ledgerlite.domain;
 
 import java.util.Objects;
 

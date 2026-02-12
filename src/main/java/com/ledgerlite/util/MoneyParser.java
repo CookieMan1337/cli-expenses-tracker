@@ -1,7 +1,7 @@
-package main.java.com.ledgerlite.util;
+package com.ledgerlite.util;
 
-import main.java.com.ledgerlite.domain.Money;
-import main.java.com.ledgerlite.exception.ValidationException;
+import com.ledgerlite.domain.Money;
+import com.ledgerlite.exception.ValidationException;
 
 import java.math.BigDecimal;
 import java.util.Currency;

@@ -1,16 +1,20 @@
-package main.java.com.ledgerlite.app;
+package com.ledgerlite.app;
 
-import main.java.com.ledgerlite.domain.Category;
-import main.java.com.ledgerlite.domain.Money;
-import main.java.com.ledgerlite.domain.Transaction;
-import main.java.com.ledgerlite.exception.ValidationException;
-import main.java.com.ledgerlite.persistence.InMemoryRepository;
-import main.java.com.ledgerlite.persistence.Repository;
-import main.java.com.ledgerlite.service.LedgerService;
-import main.java.com.ledgerlite.util.DateParser;
-import main.java.com.ledgerlite.util.MoneyParser;
+import com.ledgerlite.domain.Budget;
+import com.ledgerlite.domain.Category;
+import com.ledgerlite.domain.Money;
+import com.ledgerlite.domain.Transaction;
+import com.ledgerlite.exception.ValidationException;
+import com.ledgerlite.persistence.InMemoryRepository;
+import com.ledgerlite.persistence.Repository;
+import com.ledgerlite.service.BudgetService;
+import com.ledgerlite.service.LedgerService;
+import com.ledgerlite.service.ReportService;
+import com.ledgerlite.util.DateParser;
+import com.ledgerlite.util.MoneyParser;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.UUID;
@@ -20,14 +24,20 @@ public class LedgerLiteApp {
     private final LedgerService ledgerService;
     private final Scanner scanner;
     private boolean running = true;
+    private final BudgetService budgetService;
+    private final ReportService reportService;
 
     public LedgerLiteApp() {
         Repository<Transaction, UUID> transactionRepo =
                 new InMemoryRepository<>(Transaction::getId);
         Repository<Category, String> categoryRepo =
                 new InMemoryRepository<>(Category::code);
+        Repository<Budget, String> budgetRepo =
+                new InMemoryRepository<>(Budget::getId);
 
         this.ledgerService = new LedgerService(transactionRepo, categoryRepo);
+        this.budgetService = new BudgetService(budgetRepo, transactionRepo);
+        this.reportService = new ReportService(transactionRepo, categoryRepo);
         this.scanner = new Scanner(System.in);
     }
 
@@ -60,6 +70,8 @@ public class LedgerLiteApp {
                 case BALANCE -> showBalance();
                 case ADD_CATEGORY -> addCategory();
                 case LIST_CATEGORY -> listCategories();
+                case REPORT_MONTH -> showMonthReport();
+                case REPORT_TOP -> showTopExpenses();
                 case REMOVE -> removeTransaction();
                 case EXIT -> exit();
                 default -> System.out.println("Unknown command. Type 'help' for commands.");
@@ -149,9 +161,8 @@ public class LedgerLiteApp {
                         transaction.getAmount(),
                         transaction.getNote()
                 );
-
-                System.out.printf("\nTotal: %d transactions\n", transactions.size());
             }
+            System.out.printf("\nTotal: %d transactions\n", transactions.size());
         }
     }
 
@@ -193,6 +204,33 @@ public class LedgerLiteApp {
             }
     }
 
+    private void showMonthReport() {
+        System.out.println("===ОТЧЁТ ЗА ТЕКУЩИЙ МЕСЯЦ===");
+        var summary = reportService.getCurrentMonthSummary();
+        System.out.println(summary);
+    }
+
+    private void showTopExpenses() {
+        System.out.println("===ТОП-10 РАСХОДОВ===");
+        var top = reportService.getTopExpenses(10);
+
+        if (top.isEmpty()) {
+            System.out.println("Нет расходов.");
+            return;
+        }
+
+        for (int i = 0; i < top.size(); i++) {
+            Transaction t = top.get(i);
+            System.out.printf("%d. %s | %s | %s | %s%n",
+                    i + 1,
+                    t.getDate(),
+                    t.getCategory().name(),
+                    t.getAmount(),
+                    t.getNote() != null ? t.getNote() : ""
+            );
+        }
+    }
+
     private void removeTransaction(){
             System.out.print("Введите ID транзакции для удаления: ");
             String id = scanner.nextLine().trim();
@@ -208,6 +246,7 @@ public class LedgerLiteApp {
     public static void main(String[] args) {
         LedgerLiteApp app = new LedgerLiteApp();
         app.run();
+
     }
 
 

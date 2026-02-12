@@ -1,15 +1,17 @@
-package main.java.com.ledgerlite.app;
+package com.ledgerlite.app;
 
 public enum Command {
     HELP("help","Список команд"),
-    ADD_INCOME("Доход", "Добавить новый доход"),
-    ADD_EXPENSE("Трата", "Добавить новую строку расхода"),
-    LIST("List", "Список транзакций"),
-    BALANCE("Balance", "Текущий баланс"),
-    ADD_CATEGORY("Добавить категорию", "Добавить категорию трат"),
-    LIST_CATEGORY("Категории", "Доступные категории"),
-    REMOVE("Remove", "Удалить транзакцию"),
-    EXIT("Exit", "exit"),
+    ADD_INCOME("ADD_INCOME", "Добавить новый доход"),
+    ADD_EXPENSE("ADD_EXPENSE", "Добавить новую строку расхода"),
+    LIST("LIST", "Список транзакций"),
+    BALANCE("BALANCE", "Текущий баланс"),
+    ADD_CATEGORY("ADD_CATEGORY", "Добавить категорию трат"),
+    LIST_CATEGORY("LIST_CATEGORY", "Доступные категории"),
+    REMOVE("REMOVE", "Удалить транзакцию"),
+    REPORT_MONTH("REPORT_MONTH", "Показать отчёт за текущий месяц"),
+    REPORT_TOP("REPORT_TOP", "Показать топ-10 расходов"),
+    EXIT("EXIT", "Завершить работу"),
     UNKNOWN("","");
 
     private final String text;

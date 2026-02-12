@@ -1,6 +1,6 @@
-package main.java.com.ledgerlite.util;
+package com.ledgerlite.util;
 
-import main.java.com.ledgerlite.exception.ValidationException;
+import com.ledgerlite.exception.ValidationException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

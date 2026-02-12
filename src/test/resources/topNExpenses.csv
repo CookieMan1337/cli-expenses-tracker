@@ -1,0 +1,3 @@
+AMOUNT,CATEGORY,DATE,NOTE
+3000,00 RUB,Category[code=ENTERT, name=Entertainment],2026-01-21,развлечения
+1000,00 RUB,Category[code=FOOD, name=Food],2026-01-20,еда

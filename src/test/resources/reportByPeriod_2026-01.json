@@ -1,0 +1,21 @@
+{
+  "period" : [ 2026, 1 ],
+  "totalIncome" : {
+    "value" : 0,
+    "currency" : "RUB"
+  },
+  "totalExpense" : {
+    "value" : 4000,
+    "currency" : "RUB"
+  },
+  "expensesInCategories" : {
+    "Category[code=FOOD, name=Food]" : {
+      "value" : 1000,
+      "currency" : "RUB"
+    },
+    "Category[code=ENTERT, name=Entertainment]" : {
+      "value" : 3000,
+      "currency" : "RUB"
+    }
+  }
+}

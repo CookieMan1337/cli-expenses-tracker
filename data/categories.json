@@ -1,0 +1,31 @@
+[ {
+  "code" : "OTHER",
+  "name" : "Другое"
+}, {
+  "code" : "TRANSPORT",
+  "name" : "Транспорт"
+}, {
+  "code" : "TRAVEL",
+  "name" : "Путешествия"
+}, {
+  "code" : "SALARY",
+  "name" : "Зарплата"
+}, {
+  "code" : "ENTERTAINMENT",
+  "name" : "Развлечения"
+}, {
+  "code" : "INCOME",
+  "name" : "Входящие переводы"
+}, {
+  "code" : "SHOPPING",
+  "name" : "Шоппинг"
+}, {
+  "code" : "PRODUCT",
+  "name" : "Продукты"
+}, {
+  "code" : "SEX",
+  "name" : "Проституция"
+}, {
+  "code" : "FOOD",
+  "name" : "Кафе и рестораны"
+} ]

@@ -1,0 +1,11 @@
+[ {
+  "period" : "2026-02",
+  "category" : {
+    "code" : "SEX",
+    "name" : "Проституция"
+  },
+  "limit" : {
+    "value" : 11000.00,
+    "currency" : "RUB"
+  }
+} ]

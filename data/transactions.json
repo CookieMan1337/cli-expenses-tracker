@@ -1,0 +1,92 @@
+[ {
+  "id" : "9c540955-6628-4c76-9f80-5d274126e91c",
+  "date" : "2026-02-10",
+  "amount" : {
+    "value" : 1250.50,
+    "currency" : "RUB"
+  },
+  "category" : {
+    "code" : "FOOD",
+    "name" : "Кафе и рестораны"
+  },
+  "note" : "Нормально",
+  "type" : "EXPENSE"
+}, {
+  "id" : "cd2f3964-f2e4-4d6c-b640-3795622e06ed",
+  "date" : "2026-02-13",
+  "amount" : {
+    "value" : 12000.00,
+    "currency" : "RUB"
+  },
+  "category" : {
+    "code" : "SEX",
+    "name" : "Проституция"
+  },
+  "note" : "",
+  "type" : "EXPENSE"
+}, {
+  "id" : "f9943a0d-f2a4-49fc-a4c7-f5778a5696f2",
+  "date" : "2026-02-10",
+  "amount" : {
+    "value" : 100.00,
+    "currency" : "RUB"
+  },
+  "category" : {
+    "code" : "FOOD",
+    "name" : "Кафе и рестораны"
+  },
+  "note" : "",
+  "type" : "EXPENSE"
+}, {
+  "id" : "c21c123b-f27d-4a99-b4f2-eec98af79fb9",
+  "date" : "2026-02-13",
+  "amount" : {
+    "value" : 200.00,
+    "currency" : "RUB"
+  },
+  "category" : {
+    "code" : "TRANSPORT",
+    "name" : "Транспорт"
+  },
+  "note" : "Метро",
+  "type" : "EXPENSE"
+}, {
+  "id" : "1eb8676f-7026-4a7b-821a-bdae65a1a3d8",
+  "date" : "2026-02-13",
+  "amount" : {
+    "value" : 10000.00,
+    "currency" : "RUB"
+  },
+  "category" : {
+    "code" : "SEX",
+    "name" : "Проституция"
+  },
+  "note" : "Ирину заказал",
+  "type" : "EXPENSE"
+}, {
+  "id" : "bd58e8b8-aade-4a97-a995-e8f2a5e34606",
+  "date" : "2026-02-11",
+  "amount" : {
+    "value" : 50000.00,
+    "currency" : "RUB"
+  },
+  "category" : {
+    "code" : "SALARY",
+    "name" : "Зарплата"
+  },
+  "note" : "ура",
+  "type" : "INCOME"
+}, {
+  "id" : "0de8ea10-f295-4f82-b2b2-3e3f8d53695e",
+  "date" : "2026-02-11",
+  "amount" : {
+    "value" : 12000.00,
+    "currency" : "RUB"
+  },
+  "category" : {
+    "code" : "SEX",
+    "name" : "Проституция"
+  },
+  "note" : "Ирина",
+  "type" : "INCOME"
+} ]

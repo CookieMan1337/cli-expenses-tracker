@@ -1,0 +1,6 @@
+﻿date,type,category,amount,note
+2026-02-10,expense,FOOD,1250.50,Нормально
+2026-02-11,income,XXX,50000,Ошибка категории
+2026-02-12,expense,FOOD,-350,Отрицательная сумма
+2026-02-13,invalid,FOOD,100,Неверный тип
+2026-02-14,income,SALARY,abc,Не число

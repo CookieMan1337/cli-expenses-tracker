@@ -1,6 +1,8 @@
 package com.ledgerlite.domain;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -11,120 +13,94 @@ class MoneyTest {
 
     @Test
     void shouldCreateMoneyWithValidValues() {
-        // Given
-        BigDecimal value = new BigDecimal("100.50");
-        Currency currency = Currency.getInstance("RUB");
-
-        // When
-        Money money = new Money(value, currency);
-
-        // Then
-        assertEquals(new BigDecimal("100.50"), money.value());
-        assertEquals(currency, money.currency());
-    }
-
-    @Test
-    void shouldThrowExceptionWhenValueIsNegative() {
-        // Given
-        BigDecimal negativeValue = new BigDecimal("-10.00");
-        Currency currency = Currency.getInstance("RUB");
-
-        // When & Then
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> new Money(negativeValue, currency)
-        );
-        assertTrue(exception.getMessage().contains("value должно быть больше нуля"));
-    }
-
-    @Test
-    void shouldThrowExceptionWhenValueIsNull() {
-        // When & Then
-        assertThrows(
-                NullPointerException.class,
-                () -> new Money(null, Currency.getInstance("RUB"))
-        );
-    }
-
-    @Test
-    void shouldAddMoneyWithSameCurrency() {
-        // Given
-        Money money1 = Money.of(100.50, "RUB");
-        Money money2 = Money.of(50.25, "RUB");
-
-        // When
-        Money result = money1.add(money2);
-
-        // Then
-        assertEquals(new BigDecimal("150.75"), result.value());
-    }
-
-    @Test
-    void shouldThrowExceptionWhenAddingDifferentCurrencies() {
-        // Given
-        Money rub = Money.of(100, "RUB");
-        Money usd = Money.of(100, "USD");
-
-        // When & Then
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
-                () -> rub.add(usd)
-        );
-        assertTrue(exception.getMessage().contains("currency не сходятся"));
-    }
-
-    @Test
-    void testFactoryMethodOf() {
-        // When
         Money money = Money.of(100.50, "RUB");
 
-        // Then
         assertEquals(new BigDecimal("100.50"), money.value());
         assertEquals(Currency.getInstance("RUB"), money.currency());
     }
 
     @Test
-    void testFactoryMethodZero() {
-        // When
-        Money zero = Money.zero(Currency.getInstance("RUB"));
-
-        // Then
-        assertEquals(BigDecimal.ZERO, zero.value());
+    void shouldThrowExceptionWhenValueIsNull() {
+        assertThrows(NullPointerException.class, () ->
+                new Money(null, Currency.getInstance("RUB")));
     }
 
     @Test
-    void testIsNegative() {
-        // Given
-        Money positive = Money.of(100, "RUB");
-        Money zero = Money.zero(Currency.getInstance("RUB"));
-
-        // Then
-        assertFalse(positive.isNegative());
-        assertFalse(zero.isNegative());
+    void shouldThrowExceptionWhenCurrencyIsNull() {
+        assertThrows(NullPointerException.class, () ->
+                new Money(BigDecimal.TEN, null));
     }
 
     @Test
-    void testSubtract() {
-        // Given
+    void shouldAddMoneyWithSameCurrency() {
         Money money1 = Money.of(100.50, "RUB");
         Money money2 = Money.of(50.25, "RUB");
 
-        // When
+        Money result = money1.add(money2);
+
+        assertEquals(new BigDecimal("150.75"), result.value());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenAddingDifferentCurrencies() {
+        Money rub = Money.of(100, "RUB");
+        Money usd = Money.of(100, "USD");
+
+        assertThrows(IllegalArgumentException.class, () -> rub.add(usd));
+    }
+
+    @Test
+    void shouldSubtractMoney() {
+        Money money1 = Money.of(100.50, "RUB");
+        Money money2 = Money.of(50.25, "RUB");
+
         Money result = money1.subtract(money2);
 
-        // Then
         assertEquals(new BigDecimal("50.25"), result.value());
     }
 
     @Test
-    void testMultiply() {
-        // Given
+    void shouldMultiplyMoney() {
         Money money = Money.of(100, "RUB");
 
-        // When
         Money result = money.multiply(2.5);
 
-        // Then
         assertEquals(new BigDecimal("250.00"), result.value());
+    }
+
+    @Test
+    void shouldDetectNegativeMoney() {
+        Money positive = Money.of(100, "RUB");
+        Money zero = Money.zero(Currency.getInstance("RUB"));
+        Money negative = Money.of(-50, "RUB");
+
+        assertFalse(positive.isNegative());
+        assertFalse(zero.isNegative());
+        assertTrue(negative.isNegative());
+    }
+
+    @Test
+    void shouldCompareMoney() {
+        Money money1 = Money.of(100, "RUB");
+        Money money2 = Money.of(50, "RUB");
+
+        assertTrue(money1.isGreaterThan(money2));
+        assertFalse(money2.isGreaterThan(money1));
+        assertTrue(money2.isLessThan(money1));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "100.50, 200.75, 301.25",
+            "0.01, 0.02, 0.03",
+            "999.99, 0.01, 1000.00"
+    })
+    void shouldAddVariousAmounts(String val1, String val2, String expected) {
+        Money m1 = Money.of(Double.parseDouble(val1), "RUB");
+        Money m2 = Money.of(Double.parseDouble(val2), "RUB");
+
+        Money result = m1.add(m2);
+
+        assertEquals(new BigDecimal(expected), result.value());
     }
 }

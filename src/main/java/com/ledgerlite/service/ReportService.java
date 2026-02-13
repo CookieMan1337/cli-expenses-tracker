@@ -2,6 +2,8 @@ package com.ledgerlite.service;
 
 import com.ledgerlite.domain.*;
 import com.ledgerlite.persistence.Repository;
+import com.ledgerlite.report.PeriodSummary;
+import com.ledgerlite.report.CategoryExpense;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -80,42 +82,5 @@ public class ReportService {
                 .collect(Collectors.toList());
     }
 
-    public record PeriodSummary(
-            LocalDate from,
-            LocalDate to,
-            Money totalIncome,
-            Money totalExpense,
-            Money balance,
-            int transactionCount,
-            List<CategoryExpense> topCategories
-    ) {
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(String.format("📊 ОТЧЁТ: %s - %s%n", from, to));
-            sb.append(String.format("   Доходы:  %s%n", totalIncome));
-            sb.append(String.format("   Расходы: %s%n", totalExpense));
-            sb.append(String.format("   Баланс:  %s%n", balance));
 
-            if (!topCategories.isEmpty()) {
-                sb.append(String.format("%n   РАСХОДЫ ПО КАТЕГОРИЯМ:%n"));
-                for (CategoryExpense ce : topCategories) {
-                    double percent = ce.amount().value()
-                            .divide(totalExpense.value(), 4, java.math.RoundingMode.HALF_UP)
-                            .doubleValue() * 100;
-                    sb.append(String.format("   %s: %s (%.1f%%)%n",
-                            ce.category().name(), ce.amount(), percent));
-                }
-            }
-
-            return sb.toString();
-        }
-    }
-
-    //Расходы по категории (внутренний record)
-
-    public record CategoryExpense(
-            Category category,
-            Money amount
-    ) {}
 }

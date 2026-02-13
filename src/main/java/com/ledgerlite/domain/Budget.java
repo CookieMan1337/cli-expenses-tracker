@@ -1,5 +1,6 @@
 package com.ledgerlite.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ledgerlite.exception.ValidationException;
 
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ public record Budget(YearMonth period, Category category, Money limit) {
     }
 
     //В качестве айди будет дата и категория, на один месяц и категорию только один бюджет
+    @JsonIgnore
     public String getId() {
         return String.format("%s-%d-%02d",
                 category.code(),

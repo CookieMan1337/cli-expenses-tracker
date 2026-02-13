@@ -9,8 +9,14 @@ public enum Command {
     ADD_CATEGORY("ADD_CATEGORY", "Добавить категорию трат"),
     LIST_CATEGORY("LIST_CATEGORY", "Доступные категории"),
     REMOVE("REMOVE", "Удалить транзакцию"),
+    BUDGET_SET("BUDGET_SET", "Установить бюджет на категорию"),
+    BUDGET_LIST("BUDGET_LIST", "Показать все бюджеты"),
     REPORT_MONTH("REPORT_MONTH", "Показать отчёт за текущий месяц"),
     REPORT_TOP("REPORT_TOP", "Показать топ-10 расходов"),
+    EXPORT_CSV("EXPORT_CSV", "Экспорт месячного отчёта в CSV"),
+    EXPORT_JSON("EXPORT_JSON", "Экспорт месячного отчёта в JSON"),
+    EXPORT_TOP_CSV("EXPORT_TOP_CSV", "Экспорт топ-10 расходов в CSV"),
+    IMPORT_CSV("IMPORT_CSV", "Импорт транзакций из CSV файла"),
     EXIT("EXIT", "Завершить работу"),
     UNKNOWN("","");
 

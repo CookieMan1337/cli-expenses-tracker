@@ -5,10 +5,12 @@ import com.ledgerlite.exception.ValidationException;
 import com.ledgerlite.persistence.Repository;
 
 import java.time.YearMonth;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public class BudgetService {
+    //Тут криво что мы рекорд Repository используем, потому что юид идет сборный
     private final Repository<Budget, String> budgetRepository;
     private final Repository<Transaction, UUID> transactionRepository;
 
@@ -37,14 +39,56 @@ public class BudgetService {
         return budgetRepository.findById(id);
     }
 
+    //Получить все бюджеты
+    public List<Budget> getAllBudgets() {
+        return budgetRepository.findAll();
+    }
+
+    //Проверка превышения (для учета при добавлении трат)
+    public boolean isBudgetExceeded(YearMonth period, Category category) {
+        Optional<Budget> budgetOpt = getBudget(period, category);
+        if (budgetOpt.isEmpty()) {
+            return false; // Нет бюджета — нет превышения
+        }
+
+        Budget budget = budgetOpt.get();
+        Money spent = calculateSpent(period, category);
+        return spent.isGreaterThan(budget.limit());
+    }
+
     //Получаем сумму трат в месяце
-    public Money getSpentAmount(YearMonth period, Category category) {
+    public Money calculateSpent(YearMonth period, Category category) {
         return transactionRepository.findAll().stream()
+                .filter(t -> t instanceof Expense)
                 .filter(t -> t.getYearMonth().equals(period))
                 .filter(t -> t.getCategory().equals(category))
-                .filter(t -> t instanceof Expense)
                 .map(Transaction::getAmount)
                 .reduce(Money.ZERO_RUB, Money::add);
+    }
+
+    //Получить информацию о бюджете
+    public BudgetInfo getBudgetInfo(YearMonth period, Category category) {
+        Optional<Budget> budgetOpt = getBudget(period, category);
+        if (budgetOpt.isEmpty()) {
+            return new BudgetInfo(null, Money.ZERO_RUB, 0, false);
+        }
+
+        Budget budget = budgetOpt.get();
+        Money spent = calculateSpent(period, category);
+        //Процент использования бюджета, если больше 0, то считаем, иначе = 0
+        double percent = budget.limit().value().doubleValue() > 0
+                ? (spent.value().doubleValue() / budget.limit().value().doubleValue()) * 100
+                : 0;
+        boolean exceeded = spent.isGreaterThan(budget.limit());
+
+        return new BudgetInfo(budget, spent, percent, exceeded);
+    }
+
+    //Простой рекорд внутри класса, чтоб выдать инфо по бюджету (это ок?)
+    public record BudgetInfo(Budget budget, Money spent, double percentUsed, boolean exceeded) {
+        public boolean hasBudget() {
+            return budget != null;
+        }
     }
 
     private String generateId(YearMonth period, Category category) {

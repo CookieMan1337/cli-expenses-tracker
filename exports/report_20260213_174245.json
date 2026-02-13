@@ -1,0 +1,36 @@
+{
+  "from" : [ 2026, 2, 1 ],
+  "to" : [ 2026, 2, 28 ],
+  "totalIncome" : {
+    "value" : 12000.00,
+    "currency" : "RUB"
+  },
+  "totalExpense" : {
+    "value" : 10200.00,
+    "currency" : "RUB"
+  },
+  "balance" : {
+    "value" : 1800.00,
+    "currency" : "RUB"
+  },
+  "transactionCount" : 3,
+  "topCategories" : [ {
+    "category" : {
+      "code" : "SEX",
+      "name" : "Проституция"
+    },
+    "amount" : {
+      "value" : 10000.00,
+      "currency" : "RUB"
+    }
+  }, {
+    "category" : {
+      "code" : "TRANSPORT",
+      "name" : "Транспорт"
+    },
+    "amount" : {
+      "value" : 200.00,
+      "currency" : "RUB"
+    }
+  } ]
+}

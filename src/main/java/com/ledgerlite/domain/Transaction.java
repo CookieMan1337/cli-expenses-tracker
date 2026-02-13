@@ -1,11 +1,24 @@
 package com.ledgerlite.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Objects;
 import java.util.UUID;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Income.class, name = "INCOME"),
+        @JsonSubTypes.Type(value = Expense.class, name = "EXPENSE")
+})
 public abstract class Transaction {
     private final UUID id;
     private final LocalDate date;
@@ -22,6 +35,14 @@ public abstract class Transaction {
         this.note = note;
 
         validate();
+    }
+
+    Transaction() {
+        this.id = null;
+        this.date = null;
+        this.amount = null;
+        this.category = null;
+        this.note = null;
     }
 
     protected Transaction(LocalDate date, Money amount, Category category, String note){
@@ -74,6 +95,7 @@ public abstract class Transaction {
         INCOME, EXPENSE
     }
 
+    @JsonIgnore
     public YearMonth getYearMonth(){
         return YearMonth.from(date);
     }

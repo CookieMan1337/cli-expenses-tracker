@@ -1,18 +1,22 @@
 package com.ledgerlite.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
 import java.util.Objects;
 
-public record Money(BigDecimal value, Currency currency) {
+public record Money(@JsonProperty BigDecimal value, @JsonProperty Currency currency) {
 
     public Money {
         Objects.requireNonNull(value, "value не может быть пустым");
         Objects.requireNonNull(currency, "currency не может быть пустым");
-        if (value.compareTo(BigDecimal.ZERO)<0) {
-            throw new IllegalArgumentException("value должно быть больше нуля");
-        }
+//        Эту проверку перенес при создании доходи или расхода только, когда у нас баланс то может быть минус
+//        if (value.compareTo(BigDecimal.ZERO)<0) {
+//            throw new IllegalArgumentException("value должно быть больше нуля");
+//        }
 
         value = value.setScale(2, RoundingMode.HALF_EVEN);
     }
@@ -70,6 +74,7 @@ public record Money(BigDecimal value, Currency currency) {
         return this.value.compareTo(other.value);
     }
 
+    @JsonIgnore
     public boolean isNegative(){
         return this.value.compareTo(BigDecimal.ZERO) < 0;
     }
@@ -84,9 +89,6 @@ public record Money(BigDecimal value, Currency currency) {
 
     @Override
     public String toString() {
-        return "Money{" +
-                "value=" + value +
-                ", currency=" + currency +
-                '}';
+        return String.format("%.2f %s", value, currency.getCurrencyCode());
     }
 }

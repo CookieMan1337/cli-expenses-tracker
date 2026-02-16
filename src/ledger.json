@@ -1,0 +1,69 @@
+{
+  "budgets" : [ ],
+  "categories" : [ {
+    "code" : "TRANSPORT",
+    "name" : "transport"
+  }, {
+    "code" : "SHOPPING",
+    "name" : "shopping"
+  }, {
+    "code" : "FUN",
+    "name" : "fun"
+  }, {
+    "code" : "FOOD",
+    "name" : "food"
+  } ],
+  "transactions" : [ {
+    "id" : "e5146d22-0623-4ef7-a5bc-b8713849cfe2",
+    "date" : [ 2025, 1, 15 ],
+    "amount" : {
+      "value" : 1500.00,
+      "currency" : "RUB"
+    },
+    "category" : {
+      "code" : "FOOD",
+      "name" : "food"
+    },
+    "note" : "\"Обед, ужин\"",
+    "type" : "EXPENSE"
+  }, {
+    "id" : "dd124219-eb7e-468a-9bde-0a26c9242de8",
+    "date" : [ 2025, 1, 17 ],
+    "amount" : {
+      "value" : 800.00,
+      "currency" : "RUB"
+    },
+    "category" : {
+      "code" : "FUN",
+      "name" : "fun"
+    },
+    "note" : "\"Кино, попкорн\"",
+    "type" : "EXPENSE"
+  }, {
+    "id" : "81b0be3b-957f-4297-beaa-6aef863f1624",
+    "date" : [ 2025, 1, 16 ],
+    "amount" : {
+      "value" : 350.50,
+      "currency" : "RUB"
+    },
+    "category" : {
+      "code" : "TRANSPORT",
+      "name" : "transport"
+    },
+    "note" : "\"Такси, аэропорт\"",
+    "type" : "EXPENSE"
+  }, {
+    "id" : "7be4814a-3ddc-4983-acdd-02f5336d999a",
+    "date" : [ 2025, 1, 18 ],
+    "amount" : {
+      "value" : 2500.00,
+      "currency" : "RUB"
+    },
+    "category" : {
+      "code" : "SHOPPING",
+      "name" : "shopping"
+    },
+    "note" : "\"Одежда, обувь\"",
+    "type" : "EXPENSE"
+  } ]
+}

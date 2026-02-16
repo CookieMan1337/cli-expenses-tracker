@@ -1,0 +1,135 @@
+2026-02-16 11:40:20 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 13:01:44 [main] INFO  c.ledgerlite.persistence.FileStorage - Файл с данными не найден, запуск с пустым состоянием
+2026-02-16 13:01:44 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 13:01:52 [main] INFO  c.ledgerlite.service.LedgerService - Категория food добавлена
+2026-02-16 13:01:52 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 13:01:55 [main] INFO  com.ledgerlite.app.Main - Приложение остановлено
+2026-02-16 13:44:22 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 13:44:22 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 13:44:22 [main] INFO  c.ledgerlite.service.LedgerService - Категория FOOD добавлена
+2026-02-16 13:44:22 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 13:44:22 [main] INFO  c.ledgerlite.service.LedgerService - Транзакции очищены
+2026-02-16 13:44:22 [main] INFO  c.ledgerlite.persistence.FileStorage - Транзакции загружены из файла .\src\ledger.json
+2026-02-16 13:44:22 [main] INFO  c.ledgerlite.service.BudgetService - Бюджеты удалены
+2026-02-16 13:44:22 [main] INFO  c.ledgerlite.persistence.FileStorage - Бюджеты загружены из файла .\src\ledger.json
+2026-02-16 13:44:22 [main] INFO  c.ledgerlite.persistence.FileStorage - Данные загружены из файла: .\src\ledger.json
+2026-02-16 13:44:53 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 13:44:53 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 13:44:53 [main] INFO  c.ledgerlite.service.LedgerService - Категория FOOD добавлена
+2026-02-16 13:44:53 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 13:44:53 [main] INFO  c.ledgerlite.service.LedgerService - Транзакции очищены
+2026-02-16 13:44:53 [main] INFO  c.ledgerlite.persistence.FileStorage - Транзакции загружены из файла .\src\ledger.json
+2026-02-16 13:44:53 [main] INFO  c.ledgerlite.service.BudgetService - Бюджеты удалены
+2026-02-16 13:44:53 [main] INFO  c.ledgerlite.persistence.FileStorage - Бюджеты загружены из файла .\src\ledger.json
+2026-02-16 13:44:53 [main] INFO  c.ledgerlite.persistence.FileStorage - Данные загружены из файла: .\src\ledger.json
+2026-02-16 13:46:21 [main] INFO  com.ledgerlite.app.Main - Приложение остановлено
+2026-02-16 13:47:26 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 13:47:26 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 13:47:26 [main] INFO  c.ledgerlite.service.LedgerService - Категория FOOD добавлена
+2026-02-16 13:47:26 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 13:47:26 [main] ERROR c.ledgerlite.persistence.FileStorage - Ошибка при загрузке данных: Cannot construct instance of `com.ledgerlite.domain.Transaction` (no Creators, like default constructor, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information
+ at [Source: UNKNOWN; byte offset: #UNKNOWN] (through reference chain: java.util.ArrayList[0])
+2026-02-16 13:55:17 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 13:55:18 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 13:55:18 [main] INFO  c.ledgerlite.service.LedgerService - Категория FOOD добавлена
+2026-02-16 13:55:18 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 13:55:18 [main] ERROR c.ledgerlite.persistence.FileStorage - Ошибка при загрузке данных: Cannot construct instance of `com.ledgerlite.domain.Transaction` (no Creators, like default constructor, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information
+ at [Source: UNKNOWN; byte offset: #UNKNOWN] (through reference chain: java.util.ArrayList[0])
+2026-02-16 13:55:58 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 13:55:58 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 13:55:58 [main] INFO  c.ledgerlite.service.LedgerService - Категория FOOD добавлена
+2026-02-16 13:55:58 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 13:55:58 [main] ERROR c.ledgerlite.persistence.FileStorage - Ошибка при загрузке данных: Cannot construct instance of `com.ledgerlite.domain.Expense` (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator)
+ at [Source: UNKNOWN; byte offset: #UNKNOWN] (through reference chain: java.util.ArrayList[0])
+2026-02-16 13:56:54 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 13:56:54 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 13:56:54 [main] INFO  c.ledgerlite.service.LedgerService - Категория FOOD добавлена
+2026-02-16 13:56:54 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 13:56:54 [main] INFO  c.ledgerlite.service.LedgerService - Транзакции очищены
+2026-02-16 13:56:54 [main] INFO  c.ledgerlite.persistence.FileStorage - Транзакции загружены из файла .\src\ledger.json
+2026-02-16 13:56:54 [main] INFO  c.ledgerlite.service.BudgetService - Бюджеты удалены
+2026-02-16 13:56:54 [main] INFO  c.ledgerlite.persistence.FileStorage - Бюджеты загружены из файла .\src\ledger.json
+2026-02-16 13:56:54 [main] INFO  c.ledgerlite.persistence.FileStorage - Данные загружены из файла: .\src\ledger.json
+2026-02-16 13:57:08 [main] ERROR c.ledgerlite.service.LedgerService - Ошибка во время добавления категории. Категория food уже существует
+2026-02-16 13:57:13 [main] INFO  com.ledgerlite.app.Main - Приложение остановлено
+2026-02-16 14:06:29 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 14:06:29 [main] ERROR c.ledgerlite.persistence.FileStorage - Ошибка при загрузке данных: No content to map due to end-of-input
+ at [Source: (BufferedReader); line: 1, column: 0]
+2026-02-16 14:15:35 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 14:15:35 [main] INFO  c.ledgerlite.persistence.FileStorage - Файл с данными пустой, запуск с пустым состоянием
+2026-02-16 14:15:42 [main] INFO  com.ledgerlite.app.Main - Приложение остановлено
+2026-02-16 14:15:55 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 14:15:55 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 14:15:55 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 14:15:55 [main] INFO  c.ledgerlite.service.LedgerService - Транзакции очищены
+2026-02-16 14:15:55 [main] INFO  c.ledgerlite.persistence.FileStorage - Транзакции загружены из файла .\src\ledger.json
+2026-02-16 14:15:55 [main] INFO  c.ledgerlite.service.BudgetService - Бюджеты удалены
+2026-02-16 14:15:55 [main] INFO  c.ledgerlite.persistence.FileStorage - Бюджеты загружены из файла .\src\ledger.json
+2026-02-16 14:15:55 [main] INFO  c.ledgerlite.persistence.FileStorage - Данные загружены из файла: .\src\ledger.json
+2026-02-16 14:16:02 [main] INFO  com.ledgerlite.app.Main - Приложение остановлено
+2026-02-16 14:17:09 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 14:17:09 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 14:17:09 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 14:17:09 [main] INFO  c.ledgerlite.service.LedgerService - Транзакции очищены
+2026-02-16 14:17:09 [main] INFO  c.ledgerlite.persistence.FileStorage - Транзакции загружены из файла .\src\ledger.json
+2026-02-16 14:17:09 [main] INFO  c.ledgerlite.service.BudgetService - Бюджеты удалены
+2026-02-16 14:17:09 [main] INFO  c.ledgerlite.persistence.FileStorage - Бюджеты загружены из файла .\src\ledger.json
+2026-02-16 14:17:09 [main] INFO  c.ledgerlite.persistence.FileStorage - Данные загружены из файла: .\src\ledger.json
+2026-02-16 14:17:17 [main] INFO  c.ledgerlite.service.LedgerService - Категория food добавлена
+2026-02-16 14:17:41 [main] INFO  c.ledgerlite.service.LedgerService - Категория TRANSPORT добавлена
+2026-02-16 14:17:51 [main] INFO  c.ledgerlite.service.LedgerService - Категория fun добавлена
+2026-02-16 14:18:04 [main] INFO  c.ledgerlite.service.LedgerService - Категория shopping добавлена
+2026-02-16 14:18:24 [main] INFO  com.ledgerlite.app.Main - Приложение остановлено
+2026-02-16 14:18:47 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.service.LedgerService - Категория TRANSPORT добавлена
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.service.LedgerService - Категория SHOPPING добавлена
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.service.LedgerService - Категория FUN добавлена
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.service.LedgerService - Категория FOOD добавлена
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.service.LedgerService - Транзакции очищены
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.persistence.FileStorage - Транзакции загружены из файла .\src\ledger.json
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.service.BudgetService - Бюджеты удалены
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.persistence.FileStorage - Бюджеты загружены из файла .\src\ledger.json
+2026-02-16 14:18:47 [main] INFO  c.ledgerlite.persistence.FileStorage - Данные загружены из файла: .\src\ledger.json
+2026-02-16 14:18:54 [main] INFO  com.ledgerlite.app.Main - Приложение остановлено
+2026-02-16 14:25:55 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.service.LedgerService - Категория TRANSPORT добавлена
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.service.LedgerService - Категория SHOPPING добавлена
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.service.LedgerService - Категория FUN добавлена
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.service.LedgerService - Категория FOOD добавлена
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.service.LedgerService - Транзакции очищены
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.persistence.FileStorage - Транзакции загружены из файла .\src\ledger.json
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.service.BudgetService - Бюджеты удалены
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.persistence.FileStorage - Бюджеты загружены из файла .\src\ledger.json
+2026-02-16 14:25:55 [main] INFO  c.ledgerlite.persistence.FileStorage - Данные загружены из файла: .\src\ledger.json
+2026-02-16 14:26:03 [main] INFO  com.ledgerlite.app.Main - Приложение остановлено
+2026-02-16 14:29:57 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 14:29:57 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 14:29:57 [main] INFO  c.ledgerlite.service.LedgerService - Категория TRANSPORT добавлена
+2026-02-16 14:29:57 [main] INFO  c.ledgerlite.service.LedgerService - Категория SHOPPING добавлена
+2026-02-16 14:29:57 [main] INFO  c.ledgerlite.service.LedgerService - Категория FUN добавлена
+2026-02-16 14:29:57 [main] INFO  c.ledgerlite.service.LedgerService - Категория FOOD добавлена
+2026-02-16 14:29:57 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 14:29:58 [main] INFO  c.ledgerlite.service.LedgerService - Транзакции очищены
+2026-02-16 14:29:58 [main] INFO  c.ledgerlite.persistence.FileStorage - Транзакции загружены из файла .\src\ledger.json
+2026-02-16 14:29:58 [main] INFO  c.ledgerlite.service.BudgetService - Бюджеты удалены
+2026-02-16 14:29:58 [main] INFO  c.ledgerlite.persistence.FileStorage - Бюджеты загружены из файла .\src\ledger.json
+2026-02-16 14:29:58 [main] INFO  c.ledgerlite.persistence.FileStorage - Данные загружены из файла: .\src\ledger.json
+2026-02-16 14:30:02 [main] INFO  com.ledgerlite.app.Main - Приложение остановлено
+2026-02-16 14:31:29 [main] INFO  com.ledgerlite.app.Main - Приложение запущено
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.service.LedgerService - Категории очищены
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.service.LedgerService - Категория TRANSPORT добавлена
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.service.LedgerService - Категория SHOPPING добавлена
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.service.LedgerService - Категория FUN добавлена
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.service.LedgerService - Категория FOOD добавлена
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.persistence.FileStorage - Категории загружены из файла .\src\ledger.json
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.service.LedgerService - Транзакции очищены
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.persistence.FileStorage - Транзакции загружены из файла .\src\ledger.json
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.service.BudgetService - Бюджеты удалены
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.persistence.FileStorage - Бюджеты загружены из файла .\src\ledger.json
+2026-02-16 14:31:29 [main] INFO  c.ledgerlite.persistence.FileStorage - Данные загружены из файла: .\src\ledger.json
+2026-02-16 14:31:38 [main] ERROR c.ledgerlite.service.LedgerService - Ошибка во время добавления категории. Категория food уже существует
+2026-02-16 14:31:43 [main] INFO  com.ledgerlite.app.Main - Приложение остановлено

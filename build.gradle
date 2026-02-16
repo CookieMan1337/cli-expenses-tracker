@@ -2,7 +2,16 @@ plugins {
     id 'java'
 }
 
-group = 'io.project'
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+group = 'com.ledgerlite.io.project'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -10,8 +19,17 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
+
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+    implementation 'ch.qos.logback:logback-classic:1.5.22'
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 
 test {
